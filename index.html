@@ -3,51 +3,58 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Window Dude — Hello World</title>
-    <!-- TODO: real description before launch -->
-    <meta name="description" content="Window Dude window cleaning — new site coming soon." />
+    <title>Window Dude — Window, Gutter &amp; Solar Panel Cleaning in Southern California</title>
+    <meta name="description" content="Window Dude: residential window cleaning, gutter cleaning, and solar panel cleaning in Woodland Hills and Southern California since 2010. Text 818-584-1969." />
     <meta name="robots" content="noindex" /><!-- TODO: remove at launch -->
   </head>
   <body>
     <header id="site-header"></header>
 
     <main>
-      <!-- TEMP: hello-world deploy check. Replace with the real home page (TODO). -->
-      <section class="section">
-        <div class="container prose">
-          <h1>Hello, world 👋</h1>
-          <p>This is the new windowdude.com, deployed from GitHub.</p>
+      <!-- TODO: replace /images/hero-beach.jpg with the original full-size photo (same filename) -->
+      <div class="hero-photo" role="img" aria-label="Window Dude logo over a sunny beach"></div>
+      <h1 class="visually-hidden">Window Dude</h1>
 
-          <!-- Plain-HTML status: readable even if CSS/JS fail to load -->
-          <p id="deploy-check" style="padding:12px;border-radius:8px;background:#fde8e8;color:#8a1c1c;font-weight:700;">
-            ⚠️ JS did NOT load. If this box is red and the page looks unstyled, the
-            /assets/ path is wrong for this URL (likely a /~username/ temp URL).
-          </p>
-          <p>Build: <strong id="build-stamp">unknown</strong></p>
-          <p>Page URL: <code id="page-url"></code></p>
+      <div class="page">
+        <section class="section">
+          <div class="container">
+            <!-- TODO: replace with the original full-size photo (same filename) -->
+            <figure class="figure">
+              <img src="/images/home-la-view.jpg" alt="View over Los Angeles from a hillside home with clean windows" width="850" height="635" />
+            </figure>
 
-          <p><a class="btn btn--cta btn--lg" href="#quote" data-quote>Get a Quote</a></p>
-        </div>
-      </section>
+            <div class="cards cards--3">
+              <article class="card">
+                <h3>Window Cleaning</h3>
+                <p>Inside/Outside, Upstairs/Down, all screens cleaned and put back the right way, sills wiped down, spider webs removed. When we are finished your house will look great!</p>
+              </article>
+              <article class="card">
+                <h3>Gutter Cleaning</h3>
+                <p>Leaves/debris hand removed and put into your green bin, no mess left in your yard, all downspouts rinsed out to make sure they are running clearly.</p>
+              </article>
+              <article class="card">
+                <h3>Solar Panel Cleaning</h3>
+                <p>Regular maintenance of your solar panels will keep them providing energy for you at top efficiency.</p>
+              </article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="container">
+            <p class="contact-line">
+              Send us a text to get on the schedule!
+              <a href="sms:+18185841969" data-phone="sms">(818) 584-1969</a><br />
+              <a href="mailto:info@windowdude.com" data-email>info@windowdude.com</a>
+            </p>
+            <p><a class="btn btn--cta btn--lg btn--block" href="#quote" data-quote>Click Here for a Free Quote!</a></p>
+          </div>
+        </section>
+      </div>
     </main>
 
     <footer id="site-footer"></footer>
 
     <script type="module" src="/src/site.js"></script>
-    <script type="module">
-      const box = document.getElementById('deploy-check');
-      box.textContent = '✅ JS loaded ✓ — checking CSS…';
-      box.style.background = '#e3f5ea';
-      box.style.color = '#1e5e37';
-      // Wait for the stylesheet to finish downloading before testing it
-      const checkCss = () => {
-        box.textContent = '✅ JS loaded ✓ — CSS ' +
-          (getComputedStyle(document.body).display === 'flex' ? 'loaded ✓' : 'did NOT load ✗');
-      };
-      if (document.readyState === 'complete') checkCss();
-      else window.addEventListener('load', checkCss);
-      document.getElementById('build-stamp').textContent = __BUILD_TIME__;
-      document.getElementById('page-url').textContent = location.href;
-    </script>
   </body>
 </html>
