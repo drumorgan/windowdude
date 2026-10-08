@@ -11,13 +11,11 @@ DirectoryIndex index.html
 # Custom 404
 ErrorDocument 404 /404.html
 
-# Old Squarespace blog post URLs (/news/2015/2/23/some-post etc.) -> News page.
-# Only applies when the requested file/folder doesn't exist, so real pages are untouched.
+# Retired Squarespace pages -> home page (News, Instagram, and Squarespace's /home alias).
+# Covers old blog post URLs like /news/2015/2/23/some-post too.
 <IfModule mod_rewrite.c>
   RewriteEngine On
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^news/.+ /news/ [R=301,L]
+  RewriteRule ^(news|instagram|home)(/.*)?$ / [R=301,L]
 </IfModule>
 
 # Block access to the FTP deploy state file
