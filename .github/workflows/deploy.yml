@@ -1,0 +1,39 @@
+name: Deploy to InMotion
+
+on:
+  push:
+    branches: [main]
+  # Adds a "Run workflow" button on the Actions tab to redeploy manually
+  workflow_dispatch:
+
+# Never run two FTP uploads at once
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run build
+
+      - name: FTP deploy
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          protocol: ftp
+          local-dir: ./dist/
+          # If FTP_USERNAME is your main cPanel login (not a public_html-scoped
+          # FTP account), change this to ./public_html/
+          server-dir: ./

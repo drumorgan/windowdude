@@ -1,0 +1,57 @@
+# Window Dude — Apache config (InMotion cPanel)
+# NOTE: No HTTPS redirect yet — add it after DNS moves and SSL (AutoSSL) is issued.
+
+# No directory listings
+Options -Indexes
+
+# Folder URLs: /about -> /about/ (keeps old Squarespace links working)
+DirectorySlash On
+DirectoryIndex index.html
+
+# Custom 404
+ErrorDocument 404 /404.html
+
+# Block access to the FTP deploy state file
+<Files ".ftp-deploy-sync-state.json">
+  Require all denied
+</Files>
+
+# ---------- Caching ----------
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresDefault "access plus 1 hour"
+
+  # HTML: always revalidate so new deploys show up immediately
+  ExpiresByType text/html "access plus 0 seconds"
+
+  # CSS/JS: Vite puts a content hash in the filename, so cache long
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType text/javascript "access plus 1 year"
+
+  # Images: NOT hashed (uploaded to public/images/), so moderate cache.
+  # If you replace a photo, use a new filename to bust the cache.
+  ExpiresByType image/jpeg "access plus 30 days"
+  ExpiresByType image/png "access plus 30 days"
+  ExpiresByType image/webp "access plus 30 days"
+  ExpiresByType image/avif "access plus 30 days"
+  ExpiresByType image/gif "access plus 30 days"
+  ExpiresByType image/svg+xml "access plus 30 days"
+  ExpiresByType image/x-icon "access plus 30 days"
+  ExpiresByType image/vnd.microsoft.icon "access plus 30 days"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.html$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+  # Hashed build assets never change
+  <If "%{REQUEST_URI} =~ m#^/assets/#">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </If>
+</IfModule>
+
+# Compression
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css application/javascript text/javascript image/svg+xml
+</IfModule>
