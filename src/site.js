@@ -13,8 +13,8 @@ const SITE = {
   smsHref: 'sms:+18185841969',
   email: 'info@windowdude.com',
   serviceArea: 'Woodland Hills & Southern California, since 2010',
-  // TODO: replace with the real quote form / booking link when ready
-  quoteHref: '#quote',
+  // Customer Factor online quote form (used by every "Get a Quote" button)
+  quoteHref: 'https://www.thecustomerfactor.com/new/bid.php?id=d2luZG93ZHVkZQ==',
 };
 
 const NAV = [
@@ -160,15 +160,10 @@ function mount() {
     nav.classList.toggle('is-open', !open);
   });
 
-  // Placeholder quote buttons (anywhere on the page) until a real form exists
-  if (SITE.quoteHref === '#quote') {
-    document.addEventListener('click', (e) => {
-      const btn = e.target.closest('[data-quote]');
-      if (!btn) return;
-      e.preventDefault();
-      showToast(`For a free quote, call or text ${SITE.phone}.`);
-    });
-  }
+  // Point every quote button at SITE.quoteHref, so it's edited in one place
+  document.querySelectorAll('[data-quote]').forEach((a) => {
+    a.href = SITE.quoteHref;
+  });
 }
 
 try {
