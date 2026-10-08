@@ -7,11 +7,12 @@ import './styles.css';
 // ---------------------------------------------------------------------------
 const SITE = {
   name: 'Window Dude',
-  tagline: 'TODO: tagline, e.g. "Crystal-clear windows, coastal service"',
-  phone: 'TODO: (555) 555-5555',
-  phoneHref: 'tel:+15555555555', // TODO: real number, digits only after +1
-  email: 'TODO@windowdude.com',
-  serviceArea: 'TODO: service area',
+  tagline: 'Rebuilding the economy… one window at a time.',
+  phone: '(818) 584-1969',
+  phoneHref: 'tel:+18185841969',
+  smsHref: 'sms:+18185841969',
+  email: 'info@windowdude.com',
+  serviceArea: 'Woodland Hills & Southern California, since 2010',
   // TODO: replace with the real quote form / booking link when ready
   quoteHref: '#quote',
 };
@@ -20,6 +21,16 @@ const NAV = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about/' },
   { label: 'News', href: '/news/' },
+  { label: 'Instagram', href: '/instagram/' },
+  { label: 'Privacy Policy', href: '/privacy-policy/' },
+];
+
+// Social links from the old site's footer. TODO: paste the real URLs.
+// An entry with an empty url is hidden, so there are never broken links.
+const SOCIAL = [
+  { label: 'Facebook', url: '' },
+  { label: 'Instagram', url: '' },
+  { label: 'Yelp', url: '' },
 ];
 
 // ---------------------------------------------------------------------------
@@ -97,6 +108,9 @@ function headerHTML() {
 
 function footerHTML() {
   const year = new Date().getFullYear();
+  const social = SOCIAL.filter((s) => s.url)
+    .map(({ label, url }) => `<li><a href="${url}" target="_blank" rel="noopener">${label}</a></li>`)
+    .join('');
   return `
     <div class="container footer-inner">
       <div>
@@ -110,9 +124,10 @@ function footerHTML() {
       </div>
       <ul class="footer-links">
         ${NAV.map(({ label, href }) => `<li><a href="${href}">${label}</a></li>`).join('')}
-        <li><a href="/privacy-policy/">Privacy Policy</a></li>
+        ${social}
       </ul>
-      <p class="footer-copy">&copy; ${year} ${SITE.name}. All rights reserved.</p>
+      <p class="footer-copy">&copy; ${year} ${SITE.name}. All rights reserved.
+        <span class="build-stamp">Build ${__BUILD_TIME__}</span></p>
     </div>`;
 }
 
@@ -125,6 +140,16 @@ function mount() {
   }
   header.innerHTML = headerHTML();
   footer.innerHTML = footerHTML();
+
+  // Fill any [data-phone] / [data-email] links on the page from SITE
+  document.querySelectorAll('[data-phone]').forEach((a) => {
+    a.href = a.dataset.phone === 'sms' ? SITE.smsHref : SITE.phoneHref;
+    a.textContent = SITE.phone;
+  });
+  document.querySelectorAll('[data-email]').forEach((a) => {
+    a.href = `mailto:${SITE.email}`;
+    a.textContent = SITE.email;
+  });
 
   // Mobile menu toggle
   const toggle = header.querySelector('.nav-toggle');
@@ -141,7 +166,7 @@ function mount() {
       const btn = e.target.closest('[data-quote]');
       if (!btn) return;
       e.preventDefault();
-      showToast(`Quote form coming soon — call ${SITE.phone} for now.`);
+      showToast(`For a free quote, call or text ${SITE.phone}.`);
     });
   }
 }
