@@ -36,10 +36,16 @@
     <script type="module" src="/src/site.js"></script>
     <script type="module">
       const box = document.getElementById('deploy-check');
-      box.textContent = '✅ JS loaded ✓ — CSS ' +
-        (getComputedStyle(document.body).display === 'flex' ? 'loaded ✓' : 'did NOT load ✗');
+      box.textContent = '✅ JS loaded ✓ — checking CSS…';
       box.style.background = '#e3f5ea';
       box.style.color = '#1e5e37';
+      // Wait for the stylesheet to finish downloading before testing it
+      const checkCss = () => {
+        box.textContent = '✅ JS loaded ✓ — CSS ' +
+          (getComputedStyle(document.body).display === 'flex' ? 'loaded ✓' : 'did NOT load ✗');
+      };
+      if (document.readyState === 'complete') checkCss();
+      else window.addEventListener('load', checkCss);
       document.getElementById('build-stamp').textContent = __BUILD_TIME__;
       document.getElementById('page-url').textContent = location.href;
     </script>
