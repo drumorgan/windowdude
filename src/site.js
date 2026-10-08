@@ -32,12 +32,12 @@ const FOOTER_LINKS = [
   { label: 'Privacy Policy & SMS Terms', href: '/privacy-policy/' },
 ];
 
-// Social links from the old site's footer. TODO: paste the real URLs.
+// Social links shown in the footer.
 // An entry with an empty url is hidden, so there are never broken links.
 const SOCIAL = [
-  { label: 'Instagram', url: 'https://www.instagram.com/windowdude/' }, // TODO: confirm handle
-  { label: 'Facebook', url: '' },
-  { label: 'Yelp', url: '' },
+  { label: 'Instagram', url: 'https://www.instagram.com/windowdude/' },
+  { label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61556234381467' },
+  { label: 'Yelp', url: 'https://www.yelp.com/biz/window-dude-calabasas' },
   { label: 'Google', url: 'https://maps.app.goo.gl/cA7P4vrbMtR3bqzT9' }, // Google Business Profile
 ];
 
