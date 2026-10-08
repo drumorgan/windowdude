@@ -11,6 +11,14 @@ DirectoryIndex index.html
 # Custom 404
 ErrorDocument 404 /404.html
 
+# One canonical host: www.windowdude.com -> windowdude.com
+# TODO after SSL is issued: change http:// to https:// below and add the HTTPS redirect.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTP_HOST} ^www\.windowdude\.com$ [NC]
+  RewriteRule ^(.*)$ http://windowdude.com/$1 [R=301,L]
+</IfModule>
+
 # Retired Squarespace pages -> home page (News, Instagram, and Squarespace's /home alias).
 # Covers old blog post URLs like /news/2015/2/23/some-post too.
 <IfModule mod_rewrite.c>
