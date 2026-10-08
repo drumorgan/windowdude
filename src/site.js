@@ -38,7 +38,7 @@ const SOCIAL = [
   { label: 'Instagram', url: 'https://www.instagram.com/windowdude/' }, // TODO: confirm handle
   { label: 'Facebook', url: '' },
   { label: 'Yelp', url: '' },
-  { label: 'Google', url: '' },
+  { label: 'Google', url: 'https://maps.app.goo.gl/cA7P4vrbMtR3bqzT9' }, // Google Business Profile
 ];
 
 // Mustache logo mark (inline SVG). TODO: swap for the real logo file when uploaded:
