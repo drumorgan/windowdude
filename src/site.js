@@ -12,6 +12,7 @@ const SITE = {
   phoneHref: 'tel:+18185841969',
   smsHref: 'sms:+18185841969',
   email: 'info@windowdude.com',
+  hours: 'Mon–Fri 7 AM–5 PM',
   // City only — never publish the street address (it's a home)
   serviceArea: 'Based in Woodland Hills / Calabasas, CA · Serving Los Angeles & Ventura Counties since 2010',
   // Customer Factor online quote form (used by every "Get a Quote" button)
@@ -134,6 +135,7 @@ function footerHTML() {
       <div>
         <p><a href="${SITE.phoneHref}">${SITE.phone}</a></p>
         <p><a href="mailto:${SITE.email}">${SITE.email}</a></p>
+        <p>${SITE.hours}</p>
       </div>
       <ul class="footer-links">
         ${FOOTER_LINKS.map(({ label, href }) => `<li><a href="${href}">${label}</a></li>`).join('')}
