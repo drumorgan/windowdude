@@ -1,5 +1,4 @@
 # Window Dude — Apache config (InMotion cPanel)
-# NOTE: No HTTPS redirect yet — add it after DNS moves and SSL (AutoSSL) is issued.
 
 # No directory listings
 Options -Indexes
@@ -11,12 +10,23 @@ DirectoryIndex index.html
 # Custom 404
 ErrorDocument 404 /404.html
 
-# One canonical host: www.windowdude.com -> windowdude.com
-# TODO after SSL is issued: change http:// to https:// below and add the HTTPS redirect.
+# One canonical address: https://windowdude.com
+# - www.windowdude.com (http or https) -> https://windowdude.com
+# - http://windowdude.com -> https://windowdude.com
+# Skips /.well-known/ so AutoSSL can renew the certificate over plain http.
+# Checks X-Forwarded-Proto too, in case the server's NGINX proxy handles SSL (avoids redirect loops).
+# Only applies to windowdude.com, not the temp windowdude.girovagabondo.com address.
 <IfModule mod_rewrite.c>
   RewriteEngine On
+  RewriteCond %{REQUEST_URI} !^/\.well-known/
   RewriteCond %{HTTP_HOST} ^www\.windowdude\.com$ [NC]
-  RewriteRule ^(.*)$ http://windowdude.com/$1 [R=301,L]
+  RewriteRule ^(.*)$ https://windowdude.com/$1 [R=301,L]
+
+  RewriteCond %{REQUEST_URI} !^/\.well-known/
+  RewriteCond %{HTTP_HOST} ^windowdude\.com$ [NC]
+  RewriteCond %{HTTPS} !=on
+  RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+  RewriteRule ^(.*)$ https://windowdude.com/$1 [R=301,L]
 </IfModule>
 
 # Retired Squarespace pages -> home page (News, Instagram, and Squarespace's /home alias).
