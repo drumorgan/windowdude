@@ -12,7 +12,8 @@ const SITE = {
   phoneHref: 'tel:+18185841969',
   smsHref: 'sms:+18185841969',
   email: 'info@windowdude.com',
-  serviceArea: 'Serving Los Angeles & Ventura Counties since 2010',
+  // City only — never publish the street address (it's a home)
+  serviceArea: 'Based in Woodland Hills / Calabasas, CA · Serving Los Angeles & Ventura Counties since 2010',
   // Customer Factor online quote form (used by every "Get a Quote" button)
   quoteHref: 'https://www.thecustomerfactor.com/new/bid.php?id=d2luZG93ZHVkZQ==',
 };
@@ -38,6 +39,7 @@ const SOCIAL = [
   { label: 'Instagram', url: 'https://www.instagram.com/windowdude/' },
   { label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61556234381467' },
   { label: 'Yelp', url: 'https://www.yelp.com/biz/window-dude-calabasas' },
+  { label: 'Nextdoor', url: 'https://nextdoor.com/page/window-dude-los-angeles-ca/' },
   { label: 'Google', url: 'https://maps.app.goo.gl/cA7P4vrbMtR3bqzT9' }, // Google Business Profile
 ];
 
