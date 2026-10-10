@@ -276,6 +276,8 @@ p { margin: 0 0 1em; }
 /* Split: image + text */
 .split { display: grid; gap: 2rem; align-items: center; }
 .split img { border-radius: var(--radius); box-shadow: var(--shadow); width: 100%; }
+/* Tall portrait photos: crop to 4:5, keep the face in frame, cap the width */
+.split img.portrait { aspect-ratio: 4 / 5; object-fit: cover; object-position: 50% 25%; max-width: 460px; justify-self: center; }
 @media (min-width: 900px) { .split { grid-template-columns: 1fr 1.1fr; gap: 3.5rem; } }
 
 /* Reviews */
