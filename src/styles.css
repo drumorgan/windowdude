@@ -193,6 +193,7 @@ p { margin: 0 0 1em; }
 .hero-actions { display: flex; flex-direction: column; gap: 0.75rem; margin: 1.5rem 0 1.25rem; }
 .hero-actions .btn { width: 100%; }
 .hero-photo {
+  object-position: 50% 60%;
   border-radius: var(--radius);
   box-shadow: var(--shadow);
   width: 100%;
@@ -260,6 +261,13 @@ p { margin: 0 0 1em; }
   display: grid; place-items: center;
   background: var(--foam); font-size: 1.6rem; margin-bottom: 1rem;
 }
+
+/* Gallery */
+.gallery { display: grid; gap: 1.25rem; grid-template-columns: 1fr; }
+@media (min-width: 760px) { .gallery { grid-template-columns: repeat(2, 1fr); } }
+.gallery figure { margin: 0; }
+.gallery img { width: 100%; border-radius: var(--radius); box-shadow: var(--shadow); aspect-ratio: 16 / 10; object-fit: cover; }
+.gallery figcaption { margin-top: 0.6rem; font-weight: 600; color: var(--ocean-deep); }
 
 /* Steps */
 .steps { counter-reset: step; }
