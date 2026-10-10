@@ -44,9 +44,8 @@ const SOCIAL = [
   { label: 'Google', url: 'https://maps.app.goo.gl/cA7P4vrbMtR3bqzT9' }, // Google Business Profile
 ];
 
-// Mustache logo mark (inline SVG). TODO: swap for the real logo file when uploaded:
-// <img src="/images/logo.png" alt="">
-const MUSTACHE = `<svg class="brand-mark" viewBox="0 0 64 24" aria-hidden="true"><path fill="currentColor" d="M32 8.5C28.5 3 21 2 15.5 7.2 11.6 11 7.6 13.4 3 10.4 2.6 16.4 8.4 21.4 16.2 20.4 22.4 19.6 28 16.6 32 12.6 36 16.6 41.6 19.6 47.8 20.4 55.6 21.4 61.4 16.4 61 10.4 56.4 13.4 52.4 11 48.5 7.2 43 2 35.5 3 32 8.5Z"/></svg>`;
+// Logo files live in public/images/ (logo-mark.png = header, logo-white.png = footer)
+const MUSTACHE = `<img class="brand-mark" src="/images/logo-mark.png" alt="" width="277" height="112" />`;
 
 // ---------------------------------------------------------------------------
 // Toast — visible messages (no console needed)
@@ -128,7 +127,7 @@ function footerHTML() {
   return `
     <div class="container footer-inner">
       <div>
-        <p class="footer-brand">${SITE.name}</p>
+        <img class="footer-logo" src="/images/logo-white.png" alt="${SITE.name}" width="277" height="188" loading="lazy" />
         <p>${SITE.tagline}</p>
         <p>${SITE.serviceArea}</p>
       </div>
