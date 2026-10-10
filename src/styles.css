@@ -64,15 +64,6 @@ p { margin: 0 0 1em; }
   margin-bottom: 0.5rem;
 }
 
-/* Visible placeholder for content still to come (remove when filled in) */
-.todo {
-  background: #fff6d6;
-  border: 2px dashed #e0b84a;
-  border-radius: 12px;
-  padding: 1rem 1.25rem;
-  color: #6b5414;
-}
-
 /* ---------- Buttons ---------- */
 .btn {
   display: inline-flex;
