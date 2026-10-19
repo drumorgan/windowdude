@@ -37,3 +37,9 @@ jobs:
           # If FTP_USERNAME is your main cPanel login (not a public_html-scoped
           # FTP account), change this to ./public_html/
           server-dir: ./
+
+      # Loads every page on the live site and checks its CSS/JS really load and
+      # match this build. If anything is broken the run fails and GitHub emails
+      # you; open the run on GitHub to see a ✅/❌ summary of what was checked.
+      - name: Check the live site
+        run: bash scripts/verify-live.sh https://windowdude.com
