@@ -15,6 +15,14 @@ export default defineConfig({
   },
   build: {
     rollupOptions: {
+      // Stable file names (no content hash). A stale cached HTML page then still
+      // finds the current CSS/JS instead of a deleted hashed file (blank-page bug).
+      // .htaccess makes browsers revalidate /assets/ so updates show immediately.
+      output: {
+        entryFileNames: 'assets/[name].js',
+        chunkFileNames: 'assets/[name].js',
+        assetFileNames: 'assets/[name][extname]',
+      },
       input: {
         home: resolve(root, 'index.html'),
         about: resolve(root, 'about/index.html'),

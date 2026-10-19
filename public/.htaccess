@@ -29,6 +29,14 @@ ErrorDocument 404 /404.html
   RewriteRule ^(.*)$ https://windowdude.com/$1 [R=301,L]
 </IfModule>
 
+# Old content-hashed build files (e.g. /assets/site-BIlE7VcH.css) -> current stable files,
+# so any stale cached HTML still gets working styles and scripts.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteRule ^assets/site-[^/]+\.css$ /assets/site.css [L]
+  RewriteRule ^assets/site-[^/]+\.js$ /assets/site.js [L]
+</IfModule>
+
 # Retired Squarespace pages -> home page (News, Instagram, and Squarespace's /home alias).
 # Covers old blog post URLs like /news/2015/2/23/some-post too.
 <IfModule mod_rewrite.c>
@@ -49,10 +57,10 @@ ErrorDocument 404 /404.html
   # HTML: always revalidate so new deploys show up immediately
   ExpiresByType text/html "access plus 0 seconds"
 
-  # CSS/JS: Vite puts a content hash in the filename, so cache long
-  ExpiresByType text/css "access plus 1 year"
-  ExpiresByType application/javascript "access plus 1 year"
-  ExpiresByType text/javascript "access plus 1 year"
+  # CSS/JS keep the same file names between deploys, so always revalidate
+  ExpiresByType text/css "access plus 0 seconds"
+  ExpiresByType application/javascript "access plus 0 seconds"
+  ExpiresByType text/javascript "access plus 0 seconds"
 
   # Images: NOT hashed (uploaded to public/images/), so moderate cache.
   # If you replace a photo, use a new filename to bust the cache.
@@ -70,9 +78,9 @@ ErrorDocument 404 /404.html
   <FilesMatch "\.html$">
     Header set Cache-Control "no-cache"
   </FilesMatch>
-  # Hashed build assets never change
+  # Build assets keep stable names: browsers may cache but must check for updates (cheap 304)
   <If "%{REQUEST_URI} =~ m#^/assets/#">
-    Header set Cache-Control "public, max-age=31536000, immutable"
+    Header set Cache-Control "no-cache"
   </If>
 </IfModule>
 
