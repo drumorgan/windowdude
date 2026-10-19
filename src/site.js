@@ -24,6 +24,7 @@ const NAV = [
   { label: 'How It Works', href: '/#how-it-works' },
   { label: 'Reviews', href: '/#reviews' },
   { label: 'About', href: '/about/' },
+  { label: 'Trusted Pros', href: '/trusted-pros/' },
   { label: 'FAQ', href: '/#faq' },
 ];
 
