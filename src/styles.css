@@ -78,9 +78,12 @@ p { margin: 0 0 1em; }
   text-decoration: none;
   border: 2px solid transparent;
   cursor: pointer;
+  white-space: nowrap;
   transition: transform 0.1s, background 0.2s, color 0.2s;
 }
 .btn:active { transform: scale(0.97); }
+/* Very small phones: let long button labels wrap instead of overflowing */
+@media (max-width: 419px) { .btn { white-space: normal; text-align: center; padding-top: 0.5rem; padding-bottom: 0.5rem; } }
 .btn--cta { background: var(--red); color: var(--white); box-shadow: 0 8px 20px rgba(225, 48, 31, 0.3); }
 .btn--cta:hover { background: var(--red-deep); color: var(--white); }
 .btn--ghost { border-color: var(--ocean-deep); color: var(--ocean-deep); background: rgba(255, 255, 255, 0.6); }
@@ -154,8 +157,10 @@ p { margin: 0 0 1em; }
 .site-nav li a:hover { background: var(--foam); }
 .site-nav li a[aria-current='page'] { color: var(--ocean); background: var(--foam); }
 .site-nav .btn--cta { width: 100%; }
+.site-nav a, .brand { white-space: nowrap; }
 
-@media (min-width: 900px) {
+/* Full menu only when 6 links + button fit on one line; otherwise the ☰ menu */
+@media (min-width: 1024px) {
   .nav-toggle { display: none; }
   .site-nav {
     display: flex; align-items: center; gap: 1rem;
@@ -195,7 +200,7 @@ p { margin: 0 0 1em; }
   .hero-actions { flex-direction: row; }
   .hero-actions .btn { width: auto; }
 }
-@media (min-width: 900px) {
+@media (min-width: 1024px) {
   .hero { padding: 5rem 0 7rem; }
   .hero-grid { grid-template-columns: 1.05fr 1fr; gap: 3rem; }
 }
@@ -261,6 +266,8 @@ p { margin: 0 0 1em; }
 .gallery figcaption { margin-top: 0.6rem; font-weight: 600; color: var(--ocean-deep); }
 
 /* Trusted pros */
+.services-more { margin: 1.75rem 0 0; font-size: 1.05rem; color: var(--muted); }
+.services-more a { font-weight: 700; }
 .pro h2 { font-size: 1.4rem; margin-bottom: 0.25rem; }
 .pro-trade { display: inline-block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sea); margin-bottom: 0.4rem; }
 .card .pro-contact { margin-bottom: 1rem; }
@@ -365,7 +372,7 @@ p { margin: 0 0 1em; }
 }
 .action-bar .btn { width: 100%; padding: 0 0.75rem; }
 body.has-action-bar { padding-bottom: calc(76px + env(safe-area-inset-bottom)); }
-@media (min-width: 900px) {
+@media (min-width: 1024px) {
   .action-bar { display: none; }
   body.has-action-bar { padding-bottom: 0; }
 }
@@ -376,7 +383,7 @@ body.has-action-bar { padding-bottom: calc(76px + env(safe-area-inset-bottom)); 
   display: flex; flex-direction: column; gap: 8px; align-items: center;
   pointer-events: none;
 }
-@media (min-width: 900px) { .toast-host { bottom: 16px; } }
+@media (min-width: 1024px) { .toast-host { bottom: 16px; } }
 .toast {
   pointer-events: auto;
   max-width: 480px; width: 100%;
