@@ -31,6 +31,7 @@ const NAV = [
 const FOOTER_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about/' },
+  { label: 'Trusted Pros', href: '/trusted-pros/' },
   { label: 'Privacy Policy & SMS Terms', href: '/privacy-policy/' },
 ];
 
