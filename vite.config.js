@@ -18,6 +18,7 @@ export default defineConfig({
       input: {
         home: resolve(root, 'index.html'),
         about: resolve(root, 'about/index.html'),
+        trustedPros: resolve(root, 'trusted-pros/index.html'),
         privacyPolicy: resolve(root, 'privacy-policy/index.html'),
         notFound: resolve(root, '404.html'),
       },

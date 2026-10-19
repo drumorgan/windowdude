@@ -260,6 +260,14 @@ p { margin: 0 0 1em; }
 .gallery img { width: 100%; border-radius: var(--radius); box-shadow: var(--shadow); aspect-ratio: 16 / 10; object-fit: cover; }
 .gallery figcaption { margin-top: 0.6rem; font-weight: 600; color: var(--ocean-deep); }
 
+/* Trusted pros */
+.pro h2 { font-size: 1.4rem; margin-bottom: 0.25rem; }
+.pro-trade { display: inline-block; font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--sea); margin-bottom: 0.4rem; }
+.card .pro-contact { margin-bottom: 1rem; }
+.pro-actions { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 0.75rem; }
+.card .pro-links { font-size: 0.95rem; word-break: break-word; }
+.pro-note { margin-top: 1.5rem; font-size: 0.9rem; color: var(--muted); }
+
 /* Steps */
 .steps { counter-reset: step; }
 .step { position: relative; padding-top: 3.5rem; }
