@@ -48,7 +48,7 @@ for page in $PAGES; do
     else fail "$page → $asset is missing (HTTP $acode); the page would look broken"; fi
   done
   if ! cmp -s "$TMP/fresh.html" "$TMP/plain.html"; then
-    echo "⚠️ /$page: visitors are being served an older cached copy (check cPanel → NGINX Caching)" | tee -a "$SUMMARY"
+    echo "⚠️ $page: visitors are being served an older cached copy (check cPanel → NGINX Caching)" | tee -a "$SUMMARY"
   fi
 done
 
@@ -56,10 +56,16 @@ done
 for f in site.css site.js; do
   fetch "$SITE/assets/$f?$BUST" "$TMP/$f" >/dev/null
   if cmp -s "$TMP/$f" "dist/assets/$f"; then pass "/assets/$f matches this build"; else fail "/assets/$f on the server doesn't match this build"; fi
+  # What visitors get (no cache-buster): warn if a cache is still serving the old version
+  fetch "$SITE/assets/$f" "$TMP/plain-$f" >/dev/null
+  if ! cmp -s "$TMP/plain-$f" "dist/assets/$f"; then
+    echo "⚠️ /assets/$f: visitors still get the previous version from a cache (check cPanel → NGINX Caching)" | tee -a "$SUMMARY"
+  fi
 done
 
 # 4) Old hashed file names still resolve (rescues pages cached before stable names)
-fetch "$SITE/assets/site-oldbuild123.css" "$TMP/old.css" >/dev/null
+# Unique name every run so no cache (e.g. NGINX) can answer from a previous deploy
+fetch "$SITE/assets/site-old$(date +%s)$RANDOM.css" "$TMP/old.css" >/dev/null
 if cmp -s "$TMP/old.css" "dist/assets/site.css"; then pass "old hashed asset names are served the current CSS"
 else fail "old hashed asset URL does not serve the current CSS (.htaccess rewrite not working)"; fi
 
