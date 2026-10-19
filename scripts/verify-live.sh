@@ -33,16 +33,16 @@ for page in $PAGES; do
   # 1) Fresh copy (bypasses caches): must load and use the stable asset names
   code=$(fetch "$url?$BUST" "$TMP/fresh.html")
   if [ "$code" != "200" ]; then fail "$page returned HTTP $code"; continue; fi
-  if grep -q '/assets/site.css' "$TMP/fresh.html" && grep -q '/assets/site.js' "$TMP/fresh.html"; then
+  if grep -q '/assets/site.css?v=' "$TMP/fresh.html" && grep -q '/assets/site.js?v=' "$TMP/fresh.html"; then
     pass "$page loads (fresh copy)"
   else
-    fail "$page fresh copy doesn't reference /assets/site.css and /assets/site.js"
+    fail "$page fresh copy doesn't reference versioned /assets/site.css and /assets/site.js"
   fi
 
   # 2) What visitors actually get (may come from a cache): every CSS/JS it asks for must load
   code=$(fetch "$url" "$TMP/plain.html")
   if [ "$code" != "200" ]; then fail "$page (as visitors see it) returned HTTP $code"; continue; fi
-  for asset in $(grep -oE '/assets/[^"?]+\.(css|js)' "$TMP/plain.html" | sort -u); do
+  for asset in $(grep -oE '/assets/[^"?]+\.(css|js)(\?v=[A-Za-z0-9]+)?' "$TMP/plain.html" | sort -u); do
     acode=$(fetch "$SITE$asset" "$TMP/asset")
     if [ "$acode" = "200" ] && ! is_html "$TMP/asset"; then pass "$page → $asset loads"
     else fail "$page → $asset is missing (HTTP $acode); the page would look broken"; fi
