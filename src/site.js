@@ -14,7 +14,8 @@ const SITE = {
   email: 'info@windowdude.com',
   hours: 'Mon–Fri 7 AM–5 PM',
   // City only — never publish the street address (it's a home)
-  serviceArea: 'Based in Woodland Hills / Calabasas, CA · Serving Los Angeles & Ventura Counties since 2010',
+  serviceArea: 'Based in Woodland Hills / Calabasas, CA · Serving Los Angeles & Ventura Counties since 2010'
+    + (__VEGAS_OPEN__ ? ' · Now serving Las Vegas, NV' : ' · Las Vegas, NV from January 2027'),
   // Customer Factor online quote form (used by every "Get a Quote" button)
   quoteHref: 'https://www.thecustomerfactor.com/new/bid.php?id=d2luZG93ZHVkZQ==',
 };
@@ -32,6 +33,7 @@ const NAV = [
 const FOOTER_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'About', href: '/about/' },
+  { label: 'Las Vegas', href: '/las-vegas/' },
   { label: 'Trusted Pros', href: '/trusted-pros/' },
   { label: 'Privacy Policy & SMS Terms', href: '/privacy-policy/' },
 ];
@@ -156,6 +158,18 @@ function mount() {
   }
   header.innerHTML = headerHTML();
   footer.innerHTML = footerHTML();
+
+  // Las Vegas announcement bar above the header (not on the Las Vegas page itself).
+  // Wording flips on launch day via the switch in vite.config.js.
+  if (!location.pathname.startsWith('/las-vegas')) {
+    const bar = document.createElement('a');
+    bar.className = 'announce';
+    bar.href = '/las-vegas/';
+    bar.innerHTML = __VEGAS_OPEN__
+      ? '🌵 Now serving <strong>Las Vegas &amp; Henderson</strong> →'
+      : '🌵 Window Dude is coming to <strong>Las Vegas</strong>, January 2027 →';
+    header.before(bar);
+  }
 
   // Point any [data-phone] / [data-email] links at SITE (link text is left as written)
   document.querySelectorAll('[data-phone]').forEach((a) => {
