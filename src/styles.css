@@ -265,6 +265,18 @@ p { margin: 0 0 1em; }
 .gallery img { width: 100%; border-radius: var(--radius); box-shadow: var(--shadow); aspect-ratio: 16 / 10; object-fit: cover; }
 .gallery figcaption { margin-top: 0.6rem; font-weight: 600; color: var(--ocean-deep); }
 
+/* Vegas: hero headline accent, areas sub-list, announcement bar */
+.hero h1 span { color: var(--sea); }
+.areas-sub { margin: 2rem 0 0.9rem; font-size: 1.1rem; }
+.areas--vegas li a { color: inherit; text-decoration: none; }
+.announce {
+  display: block; text-align: center; text-decoration: none;
+  background: var(--ocean-deep); color: var(--white);
+  padding: 0.6rem 1rem; font-weight: 600; font-size: 0.95rem; line-height: 1.4;
+}
+.announce:hover { background: var(--ocean); color: var(--white); }
+.announce strong { color: var(--sky); }
+
 /* Trusted pros */
 .services-more { margin: 1.75rem 0 0; font-size: 1.05rem; color: var(--muted); }
 .services-more a { font-weight: 700; }

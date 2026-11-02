@@ -5,6 +5,10 @@ on:
     branches: [main]
   # Adds a "Run workflow" button on the Actions tab to redeploy manually
   workflow_dispatch:
+  # Rebuild on the 1st and 15th of each month (1 AM Pacific) so date-based
+  # content, like the Las Vegas launch switch in vite.config.js, updates itself
+  schedule:
+    - cron: '0 9 1,15 * *'
 
 # Never run two FTP uploads at once
 concurrency:
