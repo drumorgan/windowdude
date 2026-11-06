@@ -43,6 +43,14 @@ for (const file of pages) {
       if (seen[kind].has(value)) bad(`${where}: same ${kind} as ${seen[kind].get(value)} (each page needs its own)`);
       else seen[kind].set(value, where);
     }
+    // City pages must keep their core search terms in title, main headline and description
+    const KEYWORDS = { '/': /los angeles/i, '/las-vegas/': /las vegas/i };
+    if (KEYWORDS[path]) {
+      const h1 = (html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/) || [])[1]?.replace(/<[^>]+>/g, '') || '';
+      for (const [kind, text] of [['title', title || ''], ['main headline (H1)', h1], ['description', meta(html, 'description') || '']]) {
+        if (!/window cleaning/i.test(text) || !KEYWORDS[path].test(text)) bad(`${where}: ${kind} should say "window cleaning" and the city`);
+      }
+    }
     // Keep the cities separate: Vegas pages don't send people to LA-only pages,
     // and the LA business listing doesn't claim Vegas (it has its own listing).
     if (path.startsWith('/las-vegas/') && /href="\/trusted-pros\//.test(html)) bad(`${where}: links to the LA Trusted Pros page`);

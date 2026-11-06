@@ -179,6 +179,12 @@ p { margin: 0 0 1em; }
   overflow: hidden;
 }
 .hero-grid { display: grid; gap: 2rem; align-items: center; }
+/* Keyword headings styled as small labels; the slogan below keeps the big look */
+h2.eyebrow { font-size: 0.85rem; line-height: 1.4; font-weight: 700; letter-spacing: 0.12em; margin: 0 0 0.5rem; color: var(--sea); }
+.section-title, .section-head .section-title {
+  font-size: clamp(1.7rem, 5vw, 2.4rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.01em;
+  color: var(--ocean-deep); margin: 0 0 0.5em;
+}
 .hero h1.eyebrow { font-size: 0.85rem; line-height: 1.4; font-weight: 700; letter-spacing: 0.12em; color: var(--sea); }
 .hero-title {
   font-size: clamp(2.1rem, 7vw, 3.6rem); font-weight: 800; line-height: 1.15; letter-spacing: -0.01em;
