@@ -13,30 +13,82 @@ const SITE = {
   smsHref: 'sms:+18185841969',
   email: 'info@windowdude.com',
   hours: 'Mon–Fri 7 AM–5 PM',
-  // City only — never publish the street address (it's a home)
-  serviceArea: 'Based in Woodland Hills / Calabasas, CA · Serving Los Angeles & Ventura Counties since 2010'
-    + (__VEGAS_OPEN__ ? ' · Now serving Las Vegas, NV' : ' · Las Vegas, NV from January 2027'),
   // Customer Factor online quote form (used by every "Get a Quote" button)
   quoteHref: 'https://www.thecustomerfactor.com/new/bid.php?id=d2luZG93ZHVkZQ==',
 };
 
-const NAV = [
-  { label: 'Services', href: '/#services' },
-  { label: 'How It Works', href: '/#how-it-works' },
-  { label: 'Reviews', href: '/#reviews' },
-  { label: 'About', href: '/about/' },
-  { label: 'Trusted Pros', href: '/trusted-pros/' },
-  { label: 'FAQ', href: '/#faq' },
-];
+// ---------------------------------------------------------------------------
+// Cities — each has its own home page, menu, footer text and city bar.
+// Pages under /las-vegas/ are Vegas; /, /trusted-pros/ are LA. Shared pages
+// (About, Privacy, 404) use the city the visitor last browsed.
+// ---------------------------------------------------------------------------
+const CITIES = {
+  la: {
+    home: '/',
+    // City only — never publish the street address (it's a home)
+    serviceArea: 'Based in Woodland Hills / Calabasas, CA · Serving Los Angeles & Ventura Counties since 2010',
+    bar: '📍 <strong>Los Angeles<span class="wide-only"> &amp; Ventura Counties</span></strong>',
+    switchTo: 'vegas',
+    switchLabel: __VEGAS_OPEN__ ? 'Las Vegas →' : 'Las Vegas<span class="wide-only">: booking now for January 2027</span> →',
+    nav: [
+      { label: 'Services', href: '/#services' },
+      { label: 'How It Works', href: '/#how-it-works' },
+      { label: 'Reviews', href: '/#reviews' },
+      { label: 'About', href: '/about/' },
+      { label: 'Trusted Pros', href: '/trusted-pros/' },
+      { label: 'FAQ', href: '/#faq' },
+    ],
+    footer: [
+      { label: 'Los Angeles', href: '/' },
+      { label: 'Las Vegas', href: '/las-vegas/' },
+      { label: 'About', href: '/about/' },
+      { label: 'Trusted Pros', href: '/trusted-pros/' },
+    ],
+  },
+  vegas: {
+    home: '/las-vegas/',
+    serviceArea: __VEGAS_OPEN__
+      ? 'Serving Las Vegas, Henderson, Summerlin & the valley · Window Dude since 2010'
+      : 'Las Vegas, Henderson, Summerlin & the valley · Booking now, service starts January 2027',
+    bar: __VEGAS_OPEN__
+      ? '📍 <strong>Las Vegas</strong>'
+      : '📍 <strong>Las Vegas</strong><span class="wide-only"> · Booking now, service starts January 2027</span>',
+    switchTo: 'la',
+    switchLabel: 'Los Angeles →',
+    nav: [
+      { label: 'Services', href: '/las-vegas/#services' },
+      { label: 'Why Us', href: '/las-vegas/#why' },
+      { label: 'Reviews', href: '/las-vegas/#reviews' },
+      { label: 'Areas', href: '/las-vegas/#areas' },
+      { label: 'About', href: '/about/' },
+      { label: 'FAQ', href: '/las-vegas/#faq' },
+    ],
+    footer: [
+      { label: 'Las Vegas', href: '/las-vegas/' },
+      { label: 'Los Angeles', href: '/' },
+      { label: 'About', href: '/about/' },
+    ],
+  },
+};
 
-// Footer-only links (Privacy Policy must stay linked: required for SMS approval)
-const FOOTER_LINKS = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about/' },
-  { label: 'Las Vegas', href: '/las-vegas/' },
-  { label: 'Trusted Pros', href: '/trusted-pros/' },
-  { label: 'Privacy Policy & SMS Terms', href: '/privacy-policy/' },
-];
+// Every page links the Privacy Policy (required for SMS approval)
+const FOOTER_ALWAYS = [{ label: 'Privacy Policy & SMS Terms', href: '/privacy-policy/' }];
+
+function currentCity() {
+  const path = location.pathname;
+  let city = null;
+  if (path.startsWith('/las-vegas')) city = 'vegas';
+  else if (path === '/' || path === '/index.html' || path.startsWith('/trusted-pros')) city = 'la';
+  try {
+    if (city) localStorage.setItem('wd-city', city);
+    else city = localStorage.getItem('wd-city');
+  } catch {
+    // storage blocked (private browsing): fall back to LA below
+  }
+  return CITIES[city] ? city : 'la';
+}
+const CITY = currentCity();
+const C = CITIES[CITY];
 
 // Social links shown in the footer.
 // An entry with an empty url is hidden, so there are never broken links.
@@ -101,14 +153,14 @@ function normalize(path) {
 
 function headerHTML() {
   const here = normalize(location.pathname);
-  const links = NAV.map(({ label, href }) => {
+  const links = C.nav.map(({ label, href }) => {
     const current = normalize(href) === here ? ' aria-current="page"' : '';
     return `<li><a href="${href}"${current}>${label}</a></li>`;
   }).join('');
 
   return `
     <div class="container header-inner">
-      <a class="brand" href="/" aria-label="${SITE.name} home">
+      <a class="brand" href="${C.home}" aria-label="${SITE.name} home">
         ${MUSTACHE}
         <span class="brand-name">${SITE.name}</span>
       </a>
@@ -133,7 +185,7 @@ function footerHTML() {
       <div>
         <img class="footer-logo" src="/images/logo-white.png" alt="${SITE.name}" width="277" height="188" loading="lazy" />
         <p>${SITE.tagline}</p>
-        <p>${SITE.serviceArea}</p>
+        <p>${C.serviceArea}</p>
       </div>
       <div>
         <p><a href="${SITE.phoneHref}">${SITE.phone}</a></p>
@@ -141,7 +193,7 @@ function footerHTML() {
         <p>${SITE.hours}</p>
       </div>
       <ul class="footer-links">
-        ${FOOTER_LINKS.map(({ label, href }) => `<li><a href="${href}">${label}</a></li>`).join('')}
+        ${[...C.footer, ...FOOTER_ALWAYS].map(({ label, href }) => `<li><a href="${href}">${label}</a></li>`).join('')}
         ${social}
       </ul>
       <p class="footer-copy">&copy; ${year} ${SITE.name}. All rights reserved.
@@ -159,17 +211,16 @@ function mount() {
   header.innerHTML = headerHTML();
   footer.innerHTML = footerHTML();
 
-  // Las Vegas announcement bar above the header (not on the Las Vegas page itself).
+  // City bar above the header: shows the current city and switches to the other.
   // Wording flips on launch day via the switch in vite.config.js.
-  if (!location.pathname.startsWith('/las-vegas')) {
-    const bar = document.createElement('a');
-    bar.className = 'announce';
-    bar.href = '/las-vegas/';
-    bar.innerHTML = __VEGAS_OPEN__
-      ? '🌵 Now serving <strong>Las Vegas &amp; Henderson</strong> →'
-      : '🌵 Window Dude is coming to <strong>Las Vegas</strong>, January 2027 →';
-    header.before(bar);
-  }
+  const cityBar = document.createElement('div');
+  cityBar.className = 'citybar';
+  cityBar.innerHTML = `
+    <div class="container citybar-inner">
+      <span>${C.bar}</span>
+      <a href="${CITIES[C.switchTo].home}">${C.switchLabel}</a>
+    </div>`;
+  header.before(cityBar);
 
   // Point any [data-phone] / [data-email] links at SITE (link text is left as written)
   document.querySelectorAll('[data-phone]').forEach((a) => {

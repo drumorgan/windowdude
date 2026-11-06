@@ -21,6 +21,7 @@ const urlPath = (file) => '/' + relative(DIST, file).replace(/\\/g, '/').replace
 
 const pages = htmlFiles(DIST);
 const indexable = [];
+const seen = { title: new Map(), description: new Map() };
 
 for (const file of pages) {
   const html = readFileSync(file, 'utf8');
@@ -37,6 +38,15 @@ for (const file of pages) {
     indexable.push(path);
     if (robots.includes('noindex')) bad(`${where}: is set to noindex (Google will hide it)`);
     const title = attr(html, /<title>([^<]*)<\/title>/);
+    for (const [kind, value] of [['title', title], ['description', meta(html, 'description')]]) {
+      if (!value) continue;
+      if (seen[kind].has(value)) bad(`${where}: same ${kind} as ${seen[kind].get(value)} (each page needs its own)`);
+      else seen[kind].set(value, where);
+    }
+    // Keep the cities separate: Vegas pages don't send people to LA-only pages,
+    // and the LA business listing doesn't claim Vegas (it has its own listing).
+    if (path.startsWith('/las-vegas/') && /href="\/trusted-pros\//.test(html)) bad(`${where}: links to the LA Trusted Pros page`);
+    if (path === '/' && /"name": "(Las Vegas|Henderson|Clark County)/.test(html)) bad(`${where}: LA business listing names a Vegas area`);
     if (!title) bad(`${where}: missing <title>`);
     else if (title.length > 75) bad(`${where}: title is ${title.length} characters (keep it under 75)`);
     const desc = meta(html, 'description');

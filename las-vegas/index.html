@@ -3,8 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Window Cleaning in Las Vegas<!--vegas-soon--> — Coming January 2027<!--/vegas-soon--><!--vegas-open--> & Henderson<!--/vegas-open--> | Window Dude</title>
-    <meta name="description" content="<!--vegas-soon-->Window Dude is coming to Las Vegas in January 2027: <!--/vegas-soon--><!--vegas-open-->Now serving Las Vegas: <!--/vegas-open-->window cleaning inside and out, solar panel cleaning and power washing for Las Vegas, Henderson and Summerlin." />
+    <title>Window Cleaning in Las Vegas<!--vegas-soon--> — Booking Now for January 2027<!--/vegas-soon--><!--vegas-open--> & Henderson<!--/vegas-open--> | Window Dude</title>
+    <meta name="description" content="<!--vegas-soon-->Window Dude starts in Las Vegas in January 2027. Get your free quote now: window<!--/vegas-soon--><!--vegas-open-->Now serving Las Vegas: window<!--/vegas-open--> cleaning inside and out, solar panels and power washing in Las Vegas and Henderson." />
     <link rel="canonical" href="https://windowdude.com/las-vegas/" />
     <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -23,11 +23,17 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Service",
-        "name": "Window cleaning in Las Vegas",
-        "serviceType": "Window cleaning",
+        "@type": "HomeAndConstructionBusiness",
+        "@id": "https://windowdude.com/las-vegas/#business",
+        "name": "Window Dude Las Vegas",
         "url": "https://windowdude.com/las-vegas/",
-        "provider": { "@id": "https://windowdude.com/#business", "@type": "HomeAndConstructionBusiness", "name": "Window Dude", "url": "https://windowdude.com/" },
+        "telephone": "+1-818-584-1969",
+        "email": "info@windowdude.com",
+        "image": "https://windowdude.com/images/glass-wall-pool.jpg",
+        "logo": "https://windowdude.com/images/logo.png",
+        "description": "Window cleaning, solar panel cleaning and power washing in Las Vegas, Henderson and Summerlin<!--vegas-soon-->, starting January 2027. Booking now<!--/vegas-soon-->.",
+        "address": { "@type": "PostalAddress", "addressLocality": "Las Vegas", "addressRegion": "NV", "addressCountry": "US" },
+        "parentOrganization": { "@id": "https://windowdude.com/#business", "@type": "HomeAndConstructionBusiness", "name": "Window Dude", "url": "https://windowdude.com/" },
         "areaServed": [
           { "@type": "City", "name": "Las Vegas, NV" },
           { "@type": "City", "name": "Henderson, NV" },
@@ -36,7 +42,12 @@
           { "@type": "City", "name": "Boulder City, NV" },
           { "@type": "AdministrativeArea", "name": "Clark County, NV" }
         ],
-        "availableChannel": { "@type": "ServiceChannel", "serviceUrl": "https://www.thecustomerfactor.com/new/bid.php?id=d2luZG93ZHVkZQ==" }
+        "makesOffer": [
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Window cleaning" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Solar panel cleaning" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Power washing" } },
+          { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Gutter cleaning" } }
+        ]
       }
     </script>
   </head>
@@ -47,9 +58,10 @@
       <section class="hero">
         <div class="container hero-grid">
           <div>
-            <span class="eyebrow"><!--vegas-soon-->Coming January 2027<!--/vegas-soon--><!--vegas-open-->Now serving Las Vegas<!--/vegas-open--> · Las Vegas · Henderson · Summerlin</span>
+            <span class="eyebrow">Las Vegas · Henderson · Summerlin</span>
             <h1>Window Cleaning in <span>Las Vegas.</span></h1>
-            <p class="hero-lead"><!--vegas-soon-->Window Dude is coming to Las Vegas in January 2027. <!--/vegas-soon-->One of our most experienced crews is moving from Los Angeles to Las Vegas, bringing the same full-service window cleaning we've done in Southern California since 2010.</p>
+            <!--vegas-soon--><p class="booking-pill">📅 Booking now · Starts January 2027</p><!--/vegas-soon-->
+            <p class="hero-lead"><!--vegas-soon-->Get your free quote now and lock in a spot on our first weeks in town. <!--/vegas-soon-->One of our most experienced crews is moving from Los Angeles to Las Vegas, bringing the same full-service window cleaning we've done in Southern California since 2010.</p>
             <div class="hero-actions">
               <a class="btn btn--cta btn--lg" href="https://www.thecustomerfactor.com/new/bid.php?id=d2luZG93ZHVkZQ==" data-quote><!--vegas-soon-->Book an Early Quote<!--/vegas-soon--><!--vegas-open-->Get a Free Quote<!--/vegas-open--></a>
               <a class="btn btn--ghost btn--lg" href="sms:+18185841969" data-phone="sms">Text (818) 584-1969</a>
@@ -67,7 +79,7 @@
 
       <!-- ============ SERVICES ============ -->
       <!-- Owner to confirm: all four services offered in Las Vegas -->
-      <section class="section">
+      <section class="section" id="services">
         <div class="container">
           <div class="section-head">
             <span class="eyebrow">What we do</span>
@@ -100,7 +112,7 @@
       </section>
 
       <!-- ============ WHY ============ -->
-      <section class="section section--deep">
+      <section class="section section--deep" id="why">
         <div class="container">
           <div class="section-head">
             <span class="eyebrow">Same crew, same standard</span>
@@ -124,7 +136,7 @@
       </section>
 
       <!-- ============ REVIEWS ============ -->
-      <section class="section section--sand">
+      <section class="section section--sand" id="reviews">
         <div class="container">
           <div class="section-head">
             <span class="eyebrow">What our customers say</span>
@@ -179,7 +191,7 @@
       </section>
 
       <!-- ============ FAQ ============ -->
-      <section class="section section--foam">
+      <section class="section section--foam" id="faq">
         <div class="container prose faq">
           <span class="eyebrow">FAQ</span>
           <h2>Window Dude in Las Vegas.</h2>
@@ -187,7 +199,11 @@
             <summary>When do you start in Las Vegas?</summary>
             <p><!--vegas-soon-->January 2027. You can request a quote now and we'll get you on the schedule for our first weeks in town.<!--/vegas-soon--><!--vegas-open-->We're here now. Request a free quote or text us to get on the schedule.<!--/vegas-open--></p>
           </details>
-          <details>
+          <!--vegas-soon--><details>
+            <summary>Can I book now, before January?</summary>
+            <p>Yes, please do. Request your free quote now and we'll schedule you for our first weeks in Las Vegas. Early bookings get first pick of dates.</p>
+          </details>
+          <!--/vegas-soon--><details>
             <summary>Is it the same Window Dude as in Los Angeles?</summary>
             <p>Yes. Same company, same standards, and one of our most experienced LA crews, now based in Las Vegas.</p>
           </details>
