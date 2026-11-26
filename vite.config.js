@@ -18,13 +18,13 @@ const versionAssets = {
 
 // ---------------------------------------------------------------------------
 // Las Vegas launch switch — the ONE place to change the launch date.
-// Before this date pages say "Coming January 2027"; from this date on, every
-// build says "Now serving". The deploy workflow also rebuilds on its own on the
+// Before this date pages said "Coming January 2027"; from this date on, every
+// build says "Now serving". (Switched on 2026-11-26 when the crew arrived.) The deploy workflow also rebuilds on its own on the
 // 1st and 15th of each month, so the switch flips without anyone touching it.
 // In HTML, wrap text in <!--vegas-soon-->…<!--/vegas-soon--> or
 // <!--vegas-open-->…<!--/vegas-open-->; only the matching one is kept.
 // ---------------------------------------------------------------------------
-const VEGAS_LAUNCH = '2027-01-01';
+const VEGAS_LAUNCH = '2026-11-26';
 const VEGAS_OPEN = new Date() >= new Date(`${VEGAS_LAUNCH}T00:00:00-08:00`);
 const vegasSwitch = {
   name: 'vegas-switch',
